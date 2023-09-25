@@ -1,6 +1,6 @@
-package modelos;
+package models;
 
-public class Gerente {
+public class Gerente implements Entity {
 
     private String id_geren;
     private String nom_geren;
@@ -9,17 +9,6 @@ public class Gerente {
     private String contrasena;
     private String correo;
     private String fech_nac_geren;
-
-    //Constructor
-    public Gerente(String id_geren, String nom_geren, String ape_geren, String num_geren, String correo, String fech_nac_geren, String contrasena) {
-        this.correo = correo;
-        this.fech_nac_geren = fech_nac_geren;
-        this.id_geren = id_geren;
-        this.nom_geren = nom_geren;
-        this.ape_geren = ape_geren;
-        this.num_geren = num_geren;
-        this.contrasena = contrasena;
-    }
 
     public Gerente(String id_geren, String nom_geren, String ape_geren, String num_geren, String correo, String fech_nac_geren) {
         this.correo = correo;
@@ -81,5 +70,17 @@ public class Gerente {
 
     public void setFech_nac_geren(String fech_nac_geren) {
         this.fech_nac_geren = fech_nac_geren;
+    }
+
+    @Override
+    public String[] toArray() {
+        String[] registro = new String[6];
+        registro[0] = this.getId_geren();
+        registro[1] = this.getNom_geren();
+        registro[2] = this.getApe_geren();
+        registro[3] = this.getNum_geren();
+        registro[4] = this.getCorreo();
+        registro[5] = this.getFech_nac_geren();
+        return registro;
     }
 }

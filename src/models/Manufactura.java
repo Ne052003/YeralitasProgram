@@ -1,6 +1,6 @@
-package modelos;
+package models;
 
-public class Manufactura {
+public class Manufactura implements Entity {
 
     private int id_manufac;
     private String nom_manufac;
@@ -43,4 +43,12 @@ public class Manufactura {
         this.prec_manufac = prec_manufac;
     }
 
+    @Override
+    public String[] toArray() {
+        String registro[] = new String[3];
+        registro[0] = this.getId_manufac() + "";
+        registro[1] = this.getNom_manufac();
+        registro[2] = this.getPrec_manufac() + "";
+        return registro;
+    }
 }

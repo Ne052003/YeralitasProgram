@@ -1,27 +1,25 @@
+package models;
 
-package modelos;
+public class Observacion implements Entity {
 
-import java.util.Date;
-
-public class Observacion {
-    
     private int id_observ;
     private int id_produ_2;
-    private Date fech_observ;
+    private String fech_observ;
     private String obervacion;
-    
-    //Constructor
-    public Observacion( int id_produ_2, Date fech_observ, String obervacion) {
+
+    public Observacion(int id_produ_2, String fech_observ, String obervacion) {
         this.id_produ_2 = id_produ_2;
         this.fech_observ = fech_observ;
         this.obervacion = obervacion;
     }
-    
-    public Observacion(int id_produ_2){
-        this.id_produ_2=id_produ_2;
+
+    public Observacion(int id_observ, int id_produ_2, String fech_observ, String obervacion) {
+        this.id_observ = id_observ;
+        this.id_produ_2 = id_produ_2;
+        this.fech_observ = fech_observ;
+        this.obervacion = obervacion;
     }
-    
-    //Setter y getters
+
     public int getId_observ() {
         return id_observ;
     }
@@ -38,11 +36,11 @@ public class Observacion {
         this.id_produ_2 = id_produ_2;
     }
 
-    public Date getFech_observ() {
+    public String getFech_observ() {
         return fech_observ;
     }
 
-    public void setFech_observ(Date fech_observ) {
+    public void setFech_observ(String fech_observ) {
         this.fech_observ = fech_observ;
     }
 
@@ -53,7 +51,10 @@ public class Observacion {
     public void setObervacion(String obervacion) {
         this.obervacion = obervacion;
     }
-    
-    
-    
+
+    @Override
+    public String[] toArray() {
+        return new String[]{};
+    }
+
 }

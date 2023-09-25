@@ -1,6 +1,6 @@
-package modelos;
+package models;
 
-public class Producto {
+public class Producto implements Entity {
 
     private int id_produ;
     private String id_geren_2;
@@ -92,4 +92,16 @@ public class Producto {
         this.fech_caducidad = fech_caducidad;
     }
 
+    @Override
+    public String[] toArray() {
+        String[] registro = new String[7];
+        registro[0] = this.getId_produ() + "";
+        registro[1] = this.getId_geren_2();
+        registro[2] = this.getNom_produ();
+        registro[3] = this.getPrec_produ() + "";
+        registro[4] = this.getUnidad_medida_2() + "";
+        registro[5] = this.getFech_ingreso_produ();
+        registro[6] = this.getFech_caducidad();
+        return registro;
+    }
 }
