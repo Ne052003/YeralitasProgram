@@ -1,0 +1,83 @@
+package controllers;
+
+import javax.swing.JOptionPane;
+import models.Gerente;
+import models.GestorGerente;
+import resources.GeneralMethods;
+import views.AgregarGeren_JFrame;
+import views.Consultas_JFrame;
+
+public class GerentPanelController implements PanelActionController {
+
+    private final GestorGerente gestorGerente;
+    public int row = 0;
+
+    public GerentPanelController() {
+        this.gestorGerente = new GestorGerente();
+    }
+
+    @Override
+    public EventoAccionTabla obtenerAccionEvento(Consultas_JFrame queryFrame) {
+        return new EventoAccionTabla() {
+            @Override
+            public void onAdd() {
+                GeneralMethods.openFrame(new AgregarGeren_JFrame());
+                queryFrame.dispose();
+            }
+
+            @Override
+            public void onEdit() {
+                queryFrame.actionPanel.btn_edit.setEnabled(false);
+                row = queryFrame.table.getSelectedRow();
+                if (row != -1) {
+                    javax.swing.JTable table = new javax.swing.JTable() {
+                        final boolean[] canEdit = new boolean[]{
+                            false, true, true, true, true, true
+                        };
+
+                        @Override
+                        public boolean isCellEditable(int rowIndex, int columnIndex
+                        ) {
+                            return canEdit[columnIndex] && rowIndex == row;
+                        }
+                    };
+                    queryFrame.setTable(table);
+                    queryFrame.table.changeSelection(row, 0, true, true);
+                    queryFrame.actionPanel.btn_save.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onSave() {
+                if (queryFrame.table.isEditing()) {
+                    int columnas = queryFrame.table.getColumnCount();
+                    String[] productoArr = new String[columnas];
+                    for (int i = 0; i < columnas; i++) {
+                        productoArr[i] = queryFrame.table.getValueAt(row, i).toString();
+                    }
+                    Gerente gerent = new Gerente(productoArr[0], productoArr[1], productoArr[2], productoArr[3], productoArr[4], productoArr[5]);
+                    gestorGerente.update(gerent);
+                    queryFrame.actionPanel.btn_edit.setEnabled(true);
+                    queryFrame.actionPanel.btn_save.setEnabled(false);
+                    queryFrame.setTable(queryFrame.getNotEditableTable());
+                }
+            }
+
+            @Override
+            public void onDelete() {
+                row = queryFrame.table.getSelectedRow();
+                if (row != -1) {
+                    String id = queryFrame.table.getValueAt(row, 0).toString();
+                    String name = queryFrame.table.getValueAt(row, 1).toString();
+                    int res = JOptionPane.showConfirmDialog(queryFrame, "Are you sure you want to delete the gerent with name: " + name + " and id: " + id, "Delete", 0, 3);
+                    if (res == 0) {
+                        System.out.println(id);
+                        gestorGerente.eliminar(Long.parseLong(id));
+                        queryFrame.controller.traerTodo();
+                    }
+                }
+
+            }
+        };
+    }
+}

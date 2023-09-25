@@ -1,7 +1,8 @@
-package controladores;
+package controllers;
 
-import vistas.*;
-import modelos.*;
+import models.Manufactura;
+import models.GestorManufactura;
+import views.AgregarManu_JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,11 +10,11 @@ public class ControladorManufactura implements ActionListener {
 
   AgregarManu_JFrame manufacturaVista;
   Manufactura manufacturaModelo;
-  Gestor_Manufactura gestorManufactura;
+  GestorManufactura gestorManufactura;
 
   public ControladorManufactura(AgregarManu_JFrame manufacturaVista) {
     this.manufacturaVista = manufacturaVista;
-    gestorManufactura = new Gestor_Manufactura();
+    gestorManufactura = new GestorManufactura();
   }
 
   @Override
@@ -23,7 +24,7 @@ public class ControladorManufactura implements ActionListener {
       Float prec_manufac = Float.parseFloat(manufacturaVista.txt_precio.getText());
 
       manufacturaModelo = new Manufactura(nom_manufac, prec_manufac);
-      gestorManufactura.Agregar_Manufactura(manufacturaModelo);
+      gestorManufactura.agregar(manufacturaModelo);
     }
   }
 }

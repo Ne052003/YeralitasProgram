@@ -1,7 +1,8 @@
-package controladores;
+package controllers;
 
-import vistas.*;
-import modelos.*;
+import models.Producto;
+import models.GestorProducto;
+import views.AgregarPro_JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -10,12 +11,12 @@ public class ControladorProducto implements ActionListener {
 
   AgregarPro_JFrame productoVista;
   Producto productoModelo;
-  Gestor_Producto gestorProducto;
+  GestorProducto gestorProducto;
   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
   public ControladorProducto(AgregarPro_JFrame productoVista) {
     this.productoVista = productoVista;
-    gestorProducto = new Gestor_Producto();
+    gestorProducto = new GestorProducto();
   }
 
   @Override
@@ -31,7 +32,7 @@ public class ControladorProducto implements ActionListener {
       productoModelo =
           new Producto(
               id_geren_2, nom_produ, prec_produ, unidad_medid, fech_ingreso, fech_caducidad);
-      gestorProducto.Agregar_Producto(productoModelo);
+      gestorProducto.agregar(productoModelo);
     }
   }
 }
